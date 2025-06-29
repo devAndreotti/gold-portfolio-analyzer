@@ -4,10 +4,13 @@ import HeroSection from "@/components/HeroSection";
 import PortfolioAnalyzer from "@/components/PortfolioAnalyzer";
 import AnalysisResults from "@/components/AnalysisResults";
 import { PortfolioData, AnalysisResult } from "@/types/portfolio";
+import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const { user, signOut } = useAuth();
 
   const handleAnalysis = async (portfolioData: PortfolioData) => {
     setIsAnalyzing(true);
@@ -52,6 +55,22 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <div className="absolute top-4 right-4 z-50">
+        <div className="flex items-center gap-4 bg-white/10 backdrop-blur-lg rounded-lg px-4 py-2 border border-white/20">
+          <span className="text-white text-sm">
+            Olá, {user?.email}
+          </span>
+          <Button
+            onClick={signOut}
+            variant="outline"
+            size="sm"
+            className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+          >
+            Sair
+          </Button>
+        </div>
+      </div>
+
       <HeroSection />
       
       <div className="container mx-auto px-4 py-16">
