@@ -23,7 +23,7 @@ const AppContent = () => {
   }
 
   if (!user) {
-    return <AuthPage onAuthSuccess={() => {}} />;
+    return <AuthPage onAuthSuccess={() => window.location.reload()} />;
   }
 
   return (

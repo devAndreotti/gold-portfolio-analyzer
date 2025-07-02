@@ -26,7 +26,23 @@ const AuthPage = ({ onAuthSuccess }: AuthPageProps) => {
       }
     };
     checkUser();
-  }, [onAuthSuccess]);
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        console.log('Auth event:', event, session);
+        if (event === 'SIGNED_IN' && session?.user) {
+          onAuthSuccess(session.user);
+          toast({
+            title: "Login realizado com sucesso!",
+            description: "Bem-vindo ao Portfolio Analyzer",
+          });
+        }
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, [onAuthSuccess, toast]);
 
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,10 +58,6 @@ const AuthPage = ({ onAuthSuccess }: AuthPageProps) => {
         if (error) throw error;
         if (data.user) {
           onAuthSuccess(data.user);
-          toast({
-            title: "Login realizado com sucesso!",
-            description: "Bem-vindo ao Portfolio Analyzer",
-          });
         }
       } else {
         const { data, error } = await supabase.auth.signUp({
@@ -64,6 +76,7 @@ const AuthPage = ({ onAuthSuccess }: AuthPageProps) => {
         });
       }
     } catch (error: any) {
+      console.error('Auth error:', error);
       toast({
         title: "Erro na autenticação",
         description: error.message,
@@ -84,11 +97,15 @@ const AuthPage = ({ onAuthSuccess }: AuthPageProps) => {
         }
       });
       
-      if (error) throw error;
+      if (error) {
+        console.error('Google auth error:', error);
+        throw error;
+      }
     } catch (error: any) {
+      console.error('Google auth failed:', error);
       toast({
         title: "Erro no login com Google",
-        description: error.message,
+        description: error.message || "Falha na autenticação com Google",
         variant: "destructive",
       });
       setLoading(false);
