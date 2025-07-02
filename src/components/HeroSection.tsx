@@ -61,32 +61,32 @@ const HeroSection = () => {
           
           {/* Enhanced feature cards */}
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="glass rounded-3xl p-8 hover:scale-105 transition-all duration-500 group border border-yellow-500/20 hover:border-yellow-500/40">
-              <div className="w-16 h-16 rounded-2xl golden-gradient flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+            <div className="bg-gradient-to-br from-yellow-900/30 via-amber-900/20 to-orange-900/30 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 hover:from-yellow-800/40 hover:via-amber-800/30 hover:to-orange-800/40 transition-all duration-500 group border border-yellow-500/30 hover:border-yellow-400/50 shadow-2xl hover:shadow-yellow-500/20">
+              <div className="w-16 h-16 rounded-2xl golden-gradient flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
                 <TrendingUp className="h-8 w-8 text-black" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-yellow-400">Análise Estratégica</h3>
-              <p className="text-gray-300 leading-relaxed">
+              <h3 className="text-2xl font-bold mb-4 text-yellow-300 group-hover:text-yellow-200 transition-colors duration-300">Análise Estratégica</h3>
+              <p className="text-gray-300 group-hover:text-gray-200 leading-relaxed transition-colors duration-300">
                 Identifique o estilo da sua carteira e receba insights personalizados baseados nos seus objetivos de investimento.
               </p>
             </div>
             
-            <div className="glass rounded-3xl p-8 hover:scale-105 transition-all duration-500 group border border-yellow-500/20 hover:border-yellow-500/40">
-              <div className="w-16 h-16 rounded-2xl golden-gradient flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+            <div className="bg-gradient-to-br from-yellow-900/30 via-amber-900/20 to-orange-900/30 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 hover:from-yellow-800/40 hover:via-amber-800/30 hover:to-orange-800/40 transition-all duration-500 group border border-yellow-500/30 hover:border-yellow-400/50 shadow-2xl hover:shadow-yellow-500/20">
+              <div className="w-16 h-16 rounded-2xl golden-gradient flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
                 <Shield className="h-8 w-8 text-black" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-yellow-400">Gestão de Risco</h3>
-              <p className="text-gray-300 leading-relaxed">
+              <h3 className="text-2xl font-bold mb-4 text-yellow-300 group-hover:text-yellow-200 transition-colors duration-300">Gestão de Risco</h3>
+              <p className="text-gray-300 group-hover:text-gray-200 leading-relaxed transition-colors duration-300">
                 Avalie a diversificação e identifique concentrações excessivas que podem comprometer seus resultados.
               </p>
             </div>
             
-            <div className="glass rounded-3xl p-8 hover:scale-105 transition-all duration-500 group border border-yellow-500/20 hover:border-yellow-500/40">
-              <div className="w-16 h-16 rounded-2xl golden-gradient flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+            <div className="bg-gradient-to-br from-yellow-900/30 via-amber-900/20 to-orange-900/30 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 hover:from-yellow-800/40 hover:via-amber-800/30 hover:to-orange-800/40 transition-all duration-500 group border border-yellow-500/30 hover:border-yellow-400/50 shadow-2xl hover:shadow-yellow-500/20">
+              <div className="w-16 h-16 rounded-2xl golden-gradient flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
                 <Target className="h-8 w-8 text-black" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-yellow-400">Metas Financeiras</h3>
-              <p className="text-gray-300 leading-relaxed">
+              <h3 className="text-2xl font-bold mb-4 text-yellow-300 group-hover:text-yellow-200 transition-colors duration-300">Metas Financeiras</h3>
+              <p className="text-gray-300 group-hover:text-gray-200 leading-relaxed transition-colors duration-300">
                 Alinhe sua carteira com seus objetivos: renda passiva, crescimento, aposentadoria ou preservação.
               </p>
             </div>
