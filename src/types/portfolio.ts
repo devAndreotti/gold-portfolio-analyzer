@@ -23,6 +23,7 @@ export interface AnalysisResult {
     fiis: number;
     bonds: number;
     international: number;
+    crypto: number;
   };
   sectors: Array<{
     name: string;

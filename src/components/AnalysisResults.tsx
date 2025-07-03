@@ -13,10 +13,11 @@ const AnalysisResults = ({ result }: AnalysisResultsProps) => {
   const COLORS = ['#fbbf24', '#f59e0b', '#d97706', '#b45309', '#92400e', '#78350f'];
 
   const allocationData = [
-    { name: 'Ações', value: result.allocation.stocks, color: '#fbbf24' },
-    { name: 'FIIs', value: result.allocation.fiis, color: '#f59e0b' },
-    { name: 'Renda Fixa', value: result.allocation.bonds, color: '#d97706' },
-    { name: 'Internacional', value: result.allocation.international, color: '#b45309' },
+    ...(result.allocation.stocks > 0 ? [{ name: 'Ações', value: result.allocation.stocks, color: '#fbbf24' }] : []),
+    ...(result.allocation.fiis > 0 ? [{ name: 'FIIs', value: result.allocation.fiis, color: '#f59e0b' }] : []),
+    ...(result.allocation.bonds > 0 ? [{ name: 'Renda Fixa', value: result.allocation.bonds, color: '#d97706' }] : []),
+    ...(result.allocation.international > 0 ? [{ name: 'Internacional', value: result.allocation.international, color: '#b45309' }] : []),
+    ...(result.allocation.crypto > 0 ? [{ name: 'Criptomoedas', value: result.allocation.crypto, color: '#f97316' }] : []),
   ];
 
   return (
@@ -156,7 +157,7 @@ const AnalysisResults = ({ result }: AnalysisResultsProps) => {
                 <span>Retorno Esperado</span>
                 <span className="font-semibold">{result.performance.expectedReturn}%</span>
               </div>
-              <Progress value={(result.performance.expectedReturn / 20) * 100} className="h-2" />
+              <Progress value={Math.min((result.performance.expectedReturn / 30) * 100, 100)} className="h-2" />
             </div>
             
             <div>
@@ -164,7 +165,7 @@ const AnalysisResults = ({ result }: AnalysisResultsProps) => {
                 <span>Volatilidade</span>
                 <span className="font-semibold">{result.performance.volatility}%</span>
               </div>
-              <Progress value={(result.performance.volatility / 30) * 100} className="h-2" />
+              <Progress value={Math.min((result.performance.volatility / 50) * 100, 100)} className="h-2" />
             </div>
             
             <div>
@@ -172,7 +173,7 @@ const AnalysisResults = ({ result }: AnalysisResultsProps) => {
                 <span>Índice Sharpe</span>
                 <span className="font-semibold">{result.performance.sharpeRatio}</span>
               </div>
-              <Progress value={(result.performance.sharpeRatio / 2) * 100} className="h-2" />
+              <Progress value={Math.max(0, Math.min((result.performance.sharpeRatio / 1.5) * 100, 100))} className="h-2" />
             </div>
           </div>
         </CardContent>
