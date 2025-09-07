@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./components/AuthPage";
+import ResetPasswordPage from "./components/ResetPasswordPage";
 import { useAuth } from "./hooks/useAuth";
 
 const queryClient = new QueryClient();
@@ -22,15 +23,21 @@ const AppContent = () => {
     );
   }
 
-  if (!user) {
-    return <AuthPage onAuthSuccess={() => window.location.reload()} />;
-  }
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="*" element={<NotFound />} />
+        {/* Public routes */}
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        
+        {/* Protected routes */}
+        {user ? (
+          <>
+            <Route path="/" element={<Index />} />
+            <Route path="*" element={<NotFound />} />
+          </>
+        ) : (
+          <Route path="*" element={<AuthPage onAuthSuccess={() => window.location.reload()} />} />
+        )}
       </Routes>
     </BrowserRouter>
   );

@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { User } from '@supabase/supabase-js';
 import { TrendingUp, Shield, Target } from 'lucide-react';
+import ForgotPasswordForm from './ForgotPasswordForm';
 
 interface AuthPageProps {
   onAuthSuccess: (user: User) => void;
@@ -245,13 +246,17 @@ const AuthPage = ({ onAuthSuccess }: AuthPageProps) => {
                   </Button>
                 </form>
 
-                <div className="text-center">
+                <div className="text-center space-y-3">
                   <button
                     onClick={() => setIsLogin(!isLogin)}
-                    className="text-yellow-400 hover:text-yellow-300 text-sm font-medium transition-colors duration-300"
+                    className="text-yellow-400 hover:text-yellow-300 text-sm font-medium transition-colors duration-300 block w-full"
                   >
                     {isLogin ? 'Não tem conta? Criar uma agora' : 'Já tem conta? Entrar'}
                   </button>
+                  
+                  {isLogin && (
+                    <ForgotPasswordForm />
+                  )}
                 </div>
               </div>
             </div>
