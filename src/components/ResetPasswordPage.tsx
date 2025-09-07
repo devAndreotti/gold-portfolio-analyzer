@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -12,10 +12,70 @@ const ResetPasswordPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [sessionReady, setSessionReady] = useState(false);
   const { toast } = useToast();
 
-  const accessToken = searchParams.get('access_token');
+  // Extract tokens from different possible URL formats
+  const accessToken = searchParams.get('access_token') || searchParams.get('token');
   const refreshToken = searchParams.get('refresh_token');
+  const type = searchParams.get('type');
+
+  useEffect(() => {
+    const setupSession = async () => {
+      try {
+        // Check if this is a password recovery link
+        if (type === 'recovery' && accessToken) {
+          console.log('Setting up session for password recovery');
+          
+          if (refreshToken) {
+            // Use both tokens if available
+            const { error } = await supabase.auth.setSession({
+              access_token: accessToken,
+              refresh_token: refreshToken,
+            });
+            
+            if (error) {
+              console.error('Session setup error:', error);
+              throw error;
+            }
+          } else {
+            // Use only access token for recovery
+            const { error } = await supabase.auth.setSession({
+              access_token: accessToken,
+              refresh_token: '', // Empty refresh token for recovery
+            });
+            
+            if (error) {
+              console.error('Session setup error:', error);
+              throw error;
+            }
+          }
+          
+          setSessionReady(true);
+        } else if (!accessToken) {
+          // No token, redirect to auth
+          toast({
+            title: "Link inválido",
+            description: "Link de recuperação inválido ou expirado",
+            variant: "destructive",
+          });
+          navigate('/auth');
+        } else {
+          setSessionReady(true);
+        }
+      } catch (error: any) {
+        console.error('Error setting up session:', error);
+        toast({
+          title: "Erro",
+          description: "Link de recuperação inválido ou expirado",
+          variant: "destructive",
+        });
+        navigate('/auth');
+      }
+    };
+
+    setupSession();
+  }, [accessToken, refreshToken, type, navigate, toast]);
 
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,18 +101,6 @@ const ResetPasswordPage = () => {
     setLoading(true);
 
     try {
-      // Set the session using the tokens from URL
-      if (accessToken && refreshToken) {
-        const { error: sessionError } = await supabase.auth.setSession({
-          access_token: accessToken,
-          refresh_token: refreshToken,
-        });
-
-        if (sessionError) {
-          throw sessionError;
-        }
-      }
-
       // Update the password
       const { error } = await supabase.auth.updateUser({
         password: password
@@ -67,9 +115,10 @@ const ResetPasswordPage = () => {
         description: "Sua senha foi redefinida com sucesso",
       });
 
-      // Redirect to login after successful password reset
+      // Sign out and redirect to login
+      await supabase.auth.signOut();
       setTimeout(() => {
-        navigate('/auth');
+        navigate('/');
       }, 2000);
 
     } catch (error: any) {
@@ -83,6 +132,14 @@ const ResetPasswordPage = () => {
       setLoading(false);
     }
   };
+
+  if (!sessionReady) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <div className="text-white text-xl">Verificando link de recuperação...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
