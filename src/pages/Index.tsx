@@ -12,7 +12,7 @@ const Index = () => {
   const { user, signOut } = useAuth();
 
   const analyzePortfolio = (portfolioData: PortfolioData): AnalysisResult => {
-    // Calculate real allocation based on asset types
+    // Enhanced allocation calculation with sector mapping
     const allocation = {
       stocks: 0,
       fiis: 0,
@@ -22,8 +22,12 @@ const Index = () => {
     };
 
     const sectors: { [key: string]: number } = {};
+    const assetConcentration: { [key: string]: number } = {};
 
     portfolioData.assets.forEach(asset => {
+      // Track individual asset concentration
+      assetConcentration[asset.ticker] = asset.percentage;
+
       switch (asset.type) {
         case 'stock':
           allocation.stocks += asset.percentage;
@@ -38,8 +42,10 @@ const Index = () => {
           allocation.crypto += asset.percentage;
           break;
         case 'etf':
-          // ETFs can be international or domestic
-          if (asset.ticker.includes('IVVB') || asset.ticker.includes('BOVA') || asset.name.toLowerCase().includes('internacional')) {
+          // Enhanced ETF classification
+          if (asset.ticker.includes('IVVB') || asset.ticker.includes('SPY') || 
+              asset.ticker.includes('EWZ') || asset.name.toLowerCase().includes('internacional') ||
+              asset.name.toLowerCase().includes('global')) {
             allocation.international += asset.percentage;
           } else {
             allocation.stocks += asset.percentage;
@@ -47,61 +53,85 @@ const Index = () => {
           break;
       }
 
-      // Sector analysis
+      // Enhanced sector analysis with fallback
       const sector = asset.sector || getSectorFromTicker(asset.ticker, asset.name);
       sectors[sector] = (sectors[sector] || 0) + asset.percentage;
     });
 
-    // Determine portfolio type based on allocation
-    let portfolioType = "Balanceado";
-    if (allocation.crypto > 50) {
-      portfolioType = "Crypto Focus";
-    } else if (allocation.stocks > 60) {
-      portfolioType = "Growth Aggressive";
-    } else if (allocation.fiis > 30) {
-      portfolioType = "Dividend Focus";
-    } else if (allocation.bonds > 40) {
-      portfolioType = "Conservative";
-    } else if (allocation.international > 25) {
-      portfolioType = "Global Diversified";
+    // Advanced portfolio classification
+    let portfolioType = "Balanceado Diversificado";
+    if (allocation.crypto > 40) {
+      portfolioType = "Cripto Dominante";
+    } else if (allocation.stocks > 70) {
+      portfolioType = "Growth Agressivo";
+    } else if (allocation.fiis > 40) {
+      portfolioType = "Renda Passiva";
+    } else if (allocation.bonds > 50) {
+      portfolioType = "Conservador";
+    } else if (allocation.international > 30) {
+      portfolioType = "Global Diversificado";
+    } else if (allocation.stocks > 50 && allocation.fiis > 20) {
+      portfolioType = "Híbrido Growth + Renda";
     }
 
-    // Risk level based on allocation
+    // Enhanced risk assessment
     let riskLevel = "Moderado";
-    if (allocation.crypto > 30 || allocation.stocks > 70) {
+    const cryptoRisk = allocation.crypto * 2; // Crypto has double weight in risk
+    const stockRisk = allocation.stocks * 1.2; // Stocks have moderate weight
+    const totalRiskScore = cryptoRisk + stockRisk + (allocation.bonds * 0.3);
+
+    if (totalRiskScore > 80 || allocation.crypto > 25) {
       riskLevel = "Alto";
-    } else if (allocation.bonds > 50 || (allocation.fiis + allocation.bonds) > 60) {
+    } else if (totalRiskScore < 40 || allocation.bonds > 60) {
       riskLevel = "Baixo";
     }
 
-    // Diversification score
-    const nonZeroAllocations = Object.values(allocation).filter(val => val > 0).length;
-    const maxConcentration = Math.max(...Object.values(allocation));
-    let diversificationScore = 5 + nonZeroAllocations;
-    if (maxConcentration > 70) diversificationScore -= 2;
-    if (maxConcentration > 80) diversificationScore -= 1;
-    diversificationScore = Math.min(10, Math.max(1, diversificationScore));
-
-    // Performance expectations
-    let expectedReturn = 8;
-    let volatility = 15;
+    // Enhanced diversification score (1-10)
+    const numAssetTypes = Object.values(allocation).filter(val => val > 0).length;
+    const numSectors = Object.keys(sectors).length;
+    const maxAssetConcentration = Math.max(...Object.values(assetConcentration));
+    const maxSectorConcentration = Math.max(...Object.values(sectors));
     
-    if (allocation.crypto > 50) {
-      expectedReturn = 25;
-      volatility = 45;
-    } else if (allocation.stocks > 60) {
-      expectedReturn = 12;
-      volatility = 20;
-    } else if (allocation.bonds > 50) {
-      expectedReturn = 6;
-      volatility = 8;
+    let diversificationScore = numAssetTypes * 1.5 + numSectors * 0.8;
+    
+    // Penalize concentration
+    if (maxAssetConcentration > 30) diversificationScore -= 2;
+    if (maxAssetConcentration > 50) diversificationScore -= 2;
+    if (maxSectorConcentration > 40) diversificationScore -= 1.5;
+    
+    // Bonus for international exposure
+    if (allocation.international > 10) diversificationScore += 1;
+    
+    diversificationScore = Math.min(10, Math.max(1, Math.round(diversificationScore)));
+
+    // Advanced performance modeling
+    let expectedReturn = 7; // Base return
+    let volatility = 12; // Base volatility
+    
+    // Asset class contributions to return and risk
+    expectedReturn += (allocation.crypto / 100) * 20; // Crypto: +20% expected return
+    expectedReturn += (allocation.stocks / 100) * 8; // Stocks: +8% expected return
+    expectedReturn += (allocation.fiis / 100) * 4; // FIIs: +4% expected return
+    expectedReturn += (allocation.international / 100) * 6; // International: +6% expected return
+    expectedReturn += (allocation.bonds / 100) * 2; // Bonds: +2% expected return
+    
+    volatility += (allocation.crypto / 100) * 35; // Crypto adds significant volatility
+    volatility += (allocation.stocks / 100) * 12; // Stocks add moderate volatility
+    volatility += (allocation.fiis / 100) * 8; // FIIs add low volatility
+    volatility += (allocation.international / 100) * 10; // International adds some volatility
+    volatility += (allocation.bonds / 100) * 2; // Bonds add minimal volatility
+    
+    // Adjust for goal alignment
+    if (portfolioData.goal === 'growth' && allocation.stocks < 50) {
+      expectedReturn -= 1; // Penalize growth goal without enough stocks
+    }
+    if (portfolioData.goal === 'income' && allocation.fiis < 30) {
+      expectedReturn -= 0.5; // Penalize income goal without enough FIIs
     }
 
-    // Adjust for crypto specifically
-    expectedReturn += (allocation.crypto * 0.3);
-    volatility += (allocation.crypto * 0.4);
-
-    const sharpeRatio = Number(((expectedReturn - 5) / volatility).toFixed(2));
+    // Calculate Sharpe Ratio (simplified)
+    const riskFreeRate = 5.5; // Approximate Brazilian risk-free rate (CDI)
+    const sharpeRatio = Math.max(0, Number(((expectedReturn - riskFreeRate) / volatility).toFixed(2)));
 
     // Generate recommendations
     const recommendations = generateRecommendations(allocation, portfolioData.goal, riskLevel);
@@ -152,20 +182,30 @@ const Index = () => {
   const generateRecommendations = (allocation: any, goal: string, riskLevel: string): string[] => {
     const recommendations: string[] = [];
     
+    const totalEquity = allocation.stocks + allocation.fiis + allocation.crypto;
+    const maxConcentration = Math.max(...Object.values(allocation).map(Number));
+    
+    // Enhanced crypto analysis
     if (allocation.crypto > 70) {
-      recommendations.push("Sua carteira tem alta concentração em criptomoedas. Considere diversificar para reduzir volatilidade.");
-      recommendations.push("Com mais de 70% em crypto, considere definir estratégias de take profit para realizar ganhos.");
-    } else if (allocation.crypto > 50) {
-      recommendations.push("Carteira focada em criptomoedas com boa perspectiva de crescimento, mas com alta volatilidade.");
-      recommendations.push("Considere adicionar alguns ativos tradicionais para estabilizar o portfólio.");
+      recommendations.push("🚨 Concentração extrema em cripto (70%+). Risco muito alto - considere diversificar urgentemente.");
+      recommendations.push("💰 Realize lucros parciais em criptos e realoque para ativos menos voláteis.");
+    } else if (allocation.crypto > 30) {
+      recommendations.push("₿ Alta exposição em cripto. Para estabilidade, limite a 15-20% do portfólio.");
+      recommendations.push("📊 Considere ETFs de criptomoedas para exposição mais estável ao setor.");
+    } else if (allocation.crypto > 15) {
+      recommendations.push("⚡ Boa exposição a cripto. Monitore volatilidade e tenha estratégia de saída definida.");
     }
     
-    if (allocation.stocks > 70) {
-      recommendations.push("Portfolio agressivo focado em crescimento. Considere adicionar renda fixa para equilibrar.");
+    // Stock concentration
+    if (allocation.stocks > 70 && allocation.crypto < 30) {
+      recommendations.push("📈 Portfolio agressivo em ações. Adicione 15-25% em renda fixa para reduzir volatilidade.");
+      recommendations.push("🏢 Considere incluir FIIs (10-20%) para diversificação e renda mensal.");
     }
     
-    if (allocation.bonds > 50) {
-      recommendations.push("Carteira conservadora. Para maior retorno, considere adicionar mais ações ou FIIs.");
+    // Conservative portfolios
+    if (allocation.bonds > 60) {
+      recommendations.push("🛡️ Carteira muito conservadora. Para inflation-beating, adicione 20-30% em ações.");
+      recommendations.push("💎 FIIs podem oferecer renda com crescimento potencial melhor que renda fixa.");
     }
     
     if (allocation.international < 10 && allocation.crypto < 30) {

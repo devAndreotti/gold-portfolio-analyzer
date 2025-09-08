@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trash2, Plus, Loader2, TrendingUp, PieChart, Target } from "lucide-react";
 import { Asset, PortfolioData } from "@/types/portfolio";
+import AssetAutocomplete from "./AssetAutocomplete";
 
 interface PortfolioAnalyzerProps {
   onAnalyze: (data: PortfolioData) => void;
@@ -31,6 +32,18 @@ const PortfolioAnalyzer = ({ onAnalyze, isAnalyzing }: PortfolioAnalyzerProps) =
   const updateAsset = (index: number, field: keyof Asset, value: any) => {
     const updatedAssets = assets.map((asset, i) => 
       i === index ? { ...asset, [field]: value } : asset
+    );
+    setAssets(updatedAssets);
+  };
+
+  const handleAssetSelect = (index: number, selectedAsset: { name: string; ticker: string; type: Asset['type'] }) => {
+    const updatedAssets = assets.map((asset, i) => 
+      i === index ? { 
+        ...asset, 
+        name: selectedAsset.name, 
+        ticker: selectedAsset.ticker, 
+        type: selectedAsset.type 
+      } : asset
     );
     setAssets(updatedAssets);
   };
@@ -62,7 +75,7 @@ const PortfolioAnalyzer = ({ onAnalyze, isAnalyzing }: PortfolioAnalyzerProps) =
     <div id="portfolio-analyzer" className="max-w-5xl mx-auto">
       {/* Header Section */}
       <div className="text-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-yellow-400 via-amber-500 to-orange-500 bg-clip-text text-transparent mb-4">
+        <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-yellow-400 via-amber-500 to-orange-500 bg-clip-text text-transparent mb-4 leading-tight">
           Configure Seu Portfólio
         </h2>
         <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -100,12 +113,13 @@ const PortfolioAnalyzer = ({ onAnalyze, isAnalyzing }: PortfolioAnalyzerProps) =
               <div key={index} className="glass rounded-2xl p-6 space-y-4 border border-yellow-500/10 hover:border-yellow-500/20 transition-all duration-300">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div>
-                    <Label htmlFor={`name-${index}`} className="text-sm font-medium text-gray-300 mb-2 block">Nome do Ativo</Label>
-                    <Input
+                    <AssetAutocomplete
                       id={`name-${index}`}
-                      placeholder="Ex: Petrobras"
+                      label="Nome do Ativo"
+                      placeholder="Ex: Petrobras, PETR4..."
                       value={asset.name}
-                      onChange={(e) => updateAsset(index, 'name', e.target.value)}
+                      onChange={(value) => updateAsset(index, 'name', value)}
+                      onAssetSelect={(selectedAsset) => handleAssetSelect(index, selectedAsset)}
                       className="bg-black/30 border-yellow-500/20 text-white placeholder:text-gray-500 h-11 rounded-xl focus:border-yellow-400"
                     />
                   </div>
