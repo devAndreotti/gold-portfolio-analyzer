@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trash2, Plus, Loader2, TrendingUp, PieChart, Target } from "lucide-react";
 import { Asset, PortfolioData } from "@/types/portfolio";
 import AssetAutocomplete from "./AssetAutocomplete";
+import { portfolioExamples } from "@/data/portfolioExamples";
 
 interface PortfolioAnalyzerProps {
   onAnalyze: (data: PortfolioData) => void;
@@ -23,6 +24,12 @@ const PortfolioAnalyzer = ({ onAnalyze, isAnalyzing }: PortfolioAnalyzerProps) =
 
   const addAsset = () => {
     setAssets([...assets, { name: "", ticker: "", type: "stock", percentage: 0 }]);
+  };
+
+  const loadExample = (exampleData: PortfolioData) => {
+    setAssets(exampleData.assets);
+    setGoal(exampleData.goal);
+    setRiskTolerance(exampleData.riskTolerance);
   };
 
   const removeAsset = (index: number) => {
@@ -78,9 +85,27 @@ const PortfolioAnalyzer = ({ onAnalyze, isAnalyzing }: PortfolioAnalyzerProps) =
         <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-yellow-400 via-amber-500 to-orange-500 bg-clip-text text-transparent mb-4 leading-tight">
           Configure Seu Portfólio
         </h2>
-        <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+        <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
           Insira os dados da sua carteira para receber uma análise personalizada e descobrir oportunidades de otimização
         </p>
+        
+        {/* Portfolio Examples */}
+        <div className="mb-8">
+          <p className="text-lg text-gray-300 mb-6">Ou experimente um dos nossos exemplos:</p>
+          <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            {portfolioExamples.map((example, index) => (
+              <div
+                key={index}
+                onClick={() => loadExample(example.data)}
+                className="glass rounded-2xl p-6 border border-yellow-500/20 hover:border-yellow-500/40 cursor-pointer transition-all duration-300 hover:scale-105"
+              >
+                <div className="text-4xl mb-3">{example.icon}</div>
+                <h3 className="text-lg font-semibold text-yellow-400 mb-2">{example.name}</h3>
+                <p className="text-sm text-gray-400">{example.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Main Configuration Card */}

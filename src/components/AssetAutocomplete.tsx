@@ -92,7 +92,7 @@ const AssetAutocomplete = ({
       </div>
       
       {isOpen && suggestions.length > 0 && (
-        <div className="absolute z-50 w-full mt-1 bg-slate-800 border border-yellow-500/30 rounded-xl shadow-xl backdrop-blur-sm max-h-60 overflow-y-auto">
+        <div className="absolute z-[9999] w-full mt-1 bg-slate-800 border border-yellow-500/30 rounded-xl shadow-xl backdrop-blur-sm max-h-60 overflow-y-auto">
           {suggestions.map((asset, index) => (
             <div
               key={`${asset.ticker}-${index}`}
