@@ -22,46 +22,52 @@ const ResetPasswordPage = () => {
 
   useEffect(() => {
     const setupSession = async () => {
+      console.log('Reset password page - URL params:', {
+        accessToken,
+        refreshToken,
+        type,
+        fullURL: window.location.href,
+        searchParams: Object.fromEntries(searchParams.entries())
+      });
+
       try {
         // Check if this is a password recovery link
         if (type === 'recovery' && accessToken) {
           console.log('Setting up session for password recovery');
           
-          if (refreshToken) {
-            // Use both tokens if available
-            const { error } = await supabase.auth.setSession({
-              access_token: accessToken,
-              refresh_token: refreshToken,
-            });
-            
-            if (error) {
-              console.error('Session setup error:', error);
-              throw error;
-            }
-          } else {
-            // Use only access token for recovery
-            const { error } = await supabase.auth.setSession({
-              access_token: accessToken,
-              refresh_token: '', // Empty refresh token for recovery
-            });
-            
-            if (error) {
-              console.error('Session setup error:', error);
-              throw error;
-            }
+          const { error } = await supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken || '',
+          });
+          
+          if (error) {
+            console.error('Session setup error:', error);
+            throw error;
           }
           
           setSessionReady(true);
-        } else if (!accessToken) {
-          // No token, redirect to auth
+        } else if (!accessToken && !type) {
+          console.log('No tokens found, redirecting to auth');
           toast({
             title: "Link inválido",
             description: "Link de recuperação inválido ou expirado",
             variant: "destructive",
           });
-          navigate('/auth');
+          navigate('/');
         } else {
-          setSessionReady(true);
+          console.log('Checking session without tokens');
+          // Check if there's already a valid session
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session) {
+            setSessionReady(true);
+          } else {
+            toast({
+              title: "Link inválido", 
+              description: "Link de recuperação inválido ou expirado",
+              variant: "destructive",
+            });
+            navigate('/');
+          }
         }
       } catch (error: any) {
         console.error('Error setting up session:', error);
@@ -70,12 +76,12 @@ const ResetPasswordPage = () => {
           description: "Link de recuperação inválido ou expirado",
           variant: "destructive",
         });
-        navigate('/auth');
+        navigate('/');
       }
     };
 
     setupSession();
-  }, [accessToken, refreshToken, type, navigate, toast]);
+  }, [accessToken, refreshToken, type, navigate, toast, searchParams]);
 
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
