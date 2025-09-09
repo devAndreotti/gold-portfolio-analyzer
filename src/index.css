@@ -125,3 +125,13 @@ All colors MUST be HSL.
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
+
+@layer utilities {
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/20 hover:border-yellow-400/50;
+  }
+}
