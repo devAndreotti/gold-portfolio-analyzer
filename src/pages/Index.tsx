@@ -2,6 +2,7 @@ import { useState } from "react";
 import HeroSection from "@/components/HeroSection";
 import PortfolioAnalyzer from "@/components/PortfolioAnalyzer";
 import AnalysisResults from "@/components/AnalysisResults";
+import LoadingScreen from "@/components/LoadingScreen";
 import { PortfolioData, AnalysisResult } from "@/types/portfolio";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
@@ -232,8 +233,8 @@ const Index = () => {
   const handleAnalysis = async (portfolioData: PortfolioData) => {
     setIsAnalyzing(true);
     
-    // Simulate AI analysis delay
-    await new Promise(resolve => setTimeout(resolve, 2500));
+    // Simulate AI analysis delay with creative loading
+    await new Promise(resolve => setTimeout(resolve, 3500));
     
     // Generate real analysis based on input data
     const analysisResult = analyzePortfolio(portfolioData);
@@ -244,8 +245,10 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <LoadingScreen isVisible={isAnalyzing} />
+      
       <div className="absolute top-4 right-4 z-50">
-        <div className="flex items-center gap-4 bg-white/10 backdrop-blur-lg rounded-lg px-4 py-2 border border-white/20">
+        <div className="flex items-center gap-4 bg-white/10 backdrop-blur-lg rounded-lg px-4 py-2 border border-white/20 animate-fade-in">
           <span className="text-white text-sm">
             Olá, {user?.email}
           </span>
@@ -253,23 +256,27 @@ const Index = () => {
             onClick={signOut}
             variant="outline"
             size="sm"
-            className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+            className="bg-white/10 border-white/20 text-white hover:bg-white/20 hover-scale transition-all duration-200"
           >
             Sair
           </Button>
         </div>
       </div>
 
-      <HeroSection />
+      <div className="animate-fade-in">
+        <HeroSection />
+      </div>
       
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-16 animate-fade-in">
         <PortfolioAnalyzer 
           onAnalyze={handleAnalysis} 
           isAnalyzing={isAnalyzing}
         />
         
         {analysisResult && (
-          <AnalysisResults result={analysisResult} />
+          <div className="animate-scale-in">
+            <AnalysisResults result={analysisResult} />
+          </div>
         )}
       </div>
     </div>
