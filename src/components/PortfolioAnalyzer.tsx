@@ -97,11 +97,11 @@ const PortfolioAnalyzer = ({ onAnalyze, isAnalyzing }: PortfolioAnalyzerProps) =
               <div
                 key={index}
                 onClick={() => loadExample(example.data)}
-                className="glass rounded-2xl p-6 border border-yellow-500/20 hover:border-yellow-500/40 cursor-pointer transition-all duration-300 hover:scale-105"
+                className="glass rounded-2xl p-6 border border-yellow-500/20 hover:border-yellow-500/40 cursor-pointer transition-all duration-300 hover:scale-105 hover-lift hover-brighten stagger-animation group"
               >
-                <div className="text-4xl mb-3">{example.icon}</div>
-                <h3 className="text-lg font-semibold text-yellow-400 mb-2">{example.name}</h3>
-                <p className="text-sm text-gray-400">{example.description}</p>
+                <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">{example.icon}</div>
+                <h3 className="text-lg font-semibold text-yellow-400 mb-2 group-hover:text-yellow-300 transition-colors duration-300">{example.name}</h3>
+                <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">{example.description}</p>
               </div>
             ))}
           </div>
@@ -109,7 +109,7 @@ const PortfolioAnalyzer = ({ onAnalyze, isAnalyzing }: PortfolioAnalyzerProps) =
       </div>
 
       {/* Main Configuration Card */}
-      <Card className="glass-dark border-yellow-500/30 shadow-2xl backdrop-blur-xl rounded-3xl overflow-hidden">
+      <Card className="glass-dark border-yellow-500/30 shadow-2xl backdrop-blur-xl rounded-3xl overflow-hidden slide-in-bottom hover-glow">
         <CardHeader className="bg-gradient-to-r from-yellow-500/10 to-amber-500/10 border-b border-yellow-500/20">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full golden-gradient flex items-center justify-center">
@@ -135,7 +135,7 @@ const PortfolioAnalyzer = ({ onAnalyze, isAnalyzing }: PortfolioAnalyzerProps) =
             </div>
             
             {assets.map((asset, index) => (
-              <div key={index} className="glass rounded-2xl p-6 space-y-4 border border-yellow-500/10 hover:border-yellow-500/20 transition-all duration-300">
+              <div key={index} className="glass rounded-2xl p-6 space-y-4 border border-yellow-500/10 hover:border-yellow-500/20 transition-all duration-300 hover-lift stagger-animation">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div>
                     <AssetAutocomplete

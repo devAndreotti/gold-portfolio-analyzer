@@ -69,10 +69,10 @@ const AnalysisResults = ({ result }: AnalysisResultsProps) => {
       </div>
 
       {/* Portfolio Summary */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-4">
-        <Card className="glass-dark border-yellow-500/30 hover-glow transition-all duration-300">
+      <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-4 slide-in-bottom">
+        <Card className="glass-dark border-yellow-500/30 hover-glow hover-lift transition-all duration-300 stagger-animation group">
           <CardContent className="p-4 text-center">
-            <div className="w-10 h-10 rounded-full golden-gradient flex items-center justify-center mb-3 mx-auto">
+            <div className="w-10 h-10 rounded-full golden-gradient flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform duration-300">
               <Award className="h-5 w-5 text-black" />
             </div>
             <h3 className="text-sm font-semibold text-yellow-400 mb-1">Tipo de Carteira</h3>
@@ -80,9 +80,9 @@ const AnalysisResults = ({ result }: AnalysisResultsProps) => {
           </CardContent>
         </Card>
 
-        <Card className="glass-dark border-yellow-500/30 hover-glow transition-all duration-300">
+        <Card className="glass-dark border-yellow-500/30 hover-glow hover-lift transition-all duration-300 stagger-animation group">
           <CardContent className="p-4 text-center">
-            <div className="w-10 h-10 rounded-full golden-gradient flex items-center justify-center mb-3 mx-auto">
+            <div className="w-10 h-10 rounded-full golden-gradient flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform duration-300">
               <Shield className="h-5 w-5 text-black" />
             </div>
             <h3 className="text-sm font-semibold text-yellow-400 mb-1">Nível de Risco</h3>
@@ -90,9 +90,9 @@ const AnalysisResults = ({ result }: AnalysisResultsProps) => {
           </CardContent>
         </Card>
 
-        <Card className="glass-dark border-yellow-500/30 hover-glow transition-all duration-300">
+        <Card className="glass-dark border-yellow-500/30 hover-glow hover-lift transition-all duration-300 stagger-animation group">
           <CardContent className="p-4 text-center">
-            <div className="w-10 h-10 rounded-full golden-gradient flex items-center justify-center mb-3 mx-auto">
+            <div className="w-10 h-10 rounded-full golden-gradient flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform duration-300">
               <Target className="h-5 w-5 text-black" />
             </div>
             <h3 className="text-sm font-semibold text-yellow-400 mb-1">Diversificação</h3>
@@ -100,9 +100,9 @@ const AnalysisResults = ({ result }: AnalysisResultsProps) => {
           </CardContent>
         </Card>
 
-        <Card className="glass-dark border-yellow-500/30 hover-glow transition-all duration-300">
+        <Card className="glass-dark border-yellow-500/30 hover-glow hover-lift transition-all duration-300 stagger-animation group">
           <CardContent className="p-4 text-center">
-            <div className="w-10 h-10 rounded-full golden-gradient flex items-center justify-center mb-3 mx-auto">
+            <div className="w-10 h-10 rounded-full golden-gradient flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform duration-300">
               <TrendingUp className="h-5 w-5 text-black" />
             </div>
             <h3 className="text-sm font-semibold text-yellow-400 mb-1">Retorno Esperado</h3>
@@ -110,9 +110,9 @@ const AnalysisResults = ({ result }: AnalysisResultsProps) => {
           </CardContent>
         </Card>
 
-        <Card className="glass-dark border-yellow-500/30 hover-glow transition-all duration-300">
+        <Card className="glass-dark border-yellow-500/30 hover-glow hover-lift transition-all duration-300 stagger-animation group">
           <CardContent className="p-4 text-center">
-            <div className="w-10 h-10 rounded-full golden-gradient flex items-center justify-center mb-3 mx-auto">
+            <div className="w-10 h-10 rounded-full golden-gradient flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform duration-300">
               <Activity className="h-5 w-5 text-black" />
             </div>
             <h3 className="text-sm font-semibold text-yellow-400 mb-1">Sharpe Ratio</h3>
@@ -120,9 +120,9 @@ const AnalysisResults = ({ result }: AnalysisResultsProps) => {
           </CardContent>
         </Card>
 
-        <Card className="glass-dark border-yellow-500/30 hover-glow transition-all duration-300">
+        <Card className="glass-dark border-yellow-500/30 hover-glow hover-lift transition-all duration-300 stagger-animation group">
           <CardContent className="p-4 text-center">
-            <div className="w-10 h-10 rounded-full golden-gradient flex items-center justify-center mb-3 mx-auto">
+            <div className="w-10 h-10 rounded-full golden-gradient flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform duration-300">
               <Percent className="h-5 w-5 text-black" />
             </div>
             <h3 className="text-sm font-semibold text-yellow-400 mb-1">Volatilidade</h3>
@@ -132,9 +132,9 @@ const AnalysisResults = ({ result }: AnalysisResultsProps) => {
       </div>
 
       {/* Main Charts Grid */}
-      <div className="grid xl:grid-cols-3 lg:grid-cols-2 gap-6">
+      <div className="grid xl:grid-cols-3 lg:grid-cols-2 gap-6 slide-in-left">
         {/* Allocation Chart */}
-        <Card className="glass-dark border-yellow-500/30 hover-glow transition-all duration-300">
+        <Card className="glass-dark border-yellow-500/30 hover-glow hover-lift transition-all duration-300 stagger-animation">
           <CardHeader className="flex flex-row items-center space-y-0 pb-2">
             <div className="flex items-center space-x-2">
               <PieChartIcon className="h-5 w-5 text-yellow-400" />
@@ -187,7 +187,7 @@ const AnalysisResults = ({ result }: AnalysisResultsProps) => {
         </Card>
 
         {/* Sector Distribution */}
-        <Card className="glass-dark border-yellow-500/30 hover-glow transition-all duration-300">
+        <Card className="glass-dark border-yellow-500/30 hover-glow hover-lift transition-all duration-300 stagger-animation">
           <CardHeader className="flex flex-row items-center space-y-0 pb-2">
             <div className="flex items-center space-x-2">
               <BarChart3 className="h-5 w-5 text-yellow-400" />
@@ -230,7 +230,7 @@ const AnalysisResults = ({ result }: AnalysisResultsProps) => {
         </Card>
 
         {/* Risk Analysis Radar */}
-        <Card className="glass-dark border-yellow-500/30 hover-glow transition-all duration-300">
+        <Card className="glass-dark border-yellow-500/30 hover-glow hover-lift transition-all duration-300 stagger-animation">
           <CardHeader className="flex flex-row items-center space-y-0 pb-2">
             <div className="flex items-center space-x-2">
               <Target className="h-5 w-5 text-yellow-400" />
@@ -267,9 +267,9 @@ const AnalysisResults = ({ result }: AnalysisResultsProps) => {
       </div>
 
       {/* Performance Charts */}
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className="grid lg:grid-cols-2 gap-6 slide-in-right">
         {/* Performance Simulation */}
-        <Card className="glass-dark border-yellow-500/30 hover-glow transition-all duration-300">
+        <Card className="glass-dark border-yellow-500/30 hover-glow hover-lift transition-all duration-300 stagger-animation">
           <CardHeader className="flex flex-row items-center space-y-0 pb-2">
             <div className="flex items-center space-x-2">
               <TrendingUp className="h-5 w-5 text-yellow-400" />
@@ -325,7 +325,7 @@ const AnalysisResults = ({ result }: AnalysisResultsProps) => {
         </Card>
 
         {/* Additional Metrics */}
-        <Card className="glass-dark border-yellow-500/30 hover-glow transition-all duration-300">
+        <Card className="glass-dark border-yellow-500/30 hover-glow hover-lift transition-all duration-300 stagger-animation">
           <CardHeader className="flex flex-row items-center space-y-0 pb-2">
             <div className="flex items-center space-x-2">
               <DollarSign className="h-5 w-5 text-yellow-400" />

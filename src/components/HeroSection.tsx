@@ -60,8 +60,8 @@ const HeroSection = () => {
           </div>
           
           {/* Enhanced feature cards with more bottom spacing */}
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-32">
-            <div className="bg-gradient-to-br from-yellow-900/30 via-amber-900/20 to-orange-900/30 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 hover:from-yellow-800/40 hover:via-amber-800/30 hover:to-orange-800/40 transition-all duration-500 group border border-yellow-500/30 hover:border-yellow-400/50 shadow-2xl hover:shadow-yellow-500/20">
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-32 slide-in-bottom">
+            <div className="bg-gradient-to-br from-yellow-900/30 via-amber-900/20 to-orange-900/30 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 hover:from-yellow-800/40 hover:via-amber-800/30 hover:to-orange-800/40 transition-all duration-500 group border border-yellow-500/30 hover:border-yellow-400/50 shadow-2xl hover:shadow-yellow-500/20 hover-lift stagger-animation">
               <div className="w-16 h-16 rounded-2xl golden-gradient flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
                 <TrendingUp className="h-8 w-8 text-black" />
               </div>
@@ -71,7 +71,7 @@ const HeroSection = () => {
               </p>
             </div>
             
-            <div className="bg-gradient-to-br from-yellow-900/30 via-amber-900/20 to-orange-900/30 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 hover:from-yellow-800/40 hover:via-amber-800/30 hover:to-orange-800/40 transition-all duration-500 group border border-yellow-500/30 hover:border-yellow-400/50 shadow-2xl hover:shadow-yellow-500/20">
+            <div className="bg-gradient-to-br from-yellow-900/30 via-amber-900/20 to-orange-900/30 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 hover:from-yellow-800/40 hover:via-amber-800/30 hover:to-orange-800/40 transition-all duration-500 group border border-yellow-500/30 hover:border-yellow-400/50 shadow-2xl hover:shadow-yellow-500/20 hover-lift stagger-animation">
               <div className="w-16 h-16 rounded-2xl golden-gradient flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
                 <Shield className="h-8 w-8 text-black" />
               </div>
@@ -81,7 +81,7 @@ const HeroSection = () => {
               </p>
             </div>
             
-            <div className="bg-gradient-to-br from-yellow-900/30 via-amber-900/20 to-orange-900/30 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 hover:from-yellow-800/40 hover:via-amber-800/30 hover:to-orange-800/40 transition-all duration-500 group border border-yellow-500/30 hover:border-yellow-400/50 shadow-2xl hover:shadow-yellow-500/20">
+            <div className="bg-gradient-to-br from-yellow-900/30 via-amber-900/20 to-orange-900/30 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 hover:from-yellow-800/40 hover:via-amber-800/30 hover:to-orange-800/40 transition-all duration-500 group border border-yellow-500/30 hover:border-yellow-400/50 shadow-2xl hover:shadow-yellow-500/20 hover-lift stagger-animation">
               <div className="w-16 h-16 rounded-2xl golden-gradient flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
                 <Target className="h-8 w-8 text-black" />
               </div>
