@@ -1,11 +1,16 @@
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import HeroSection from "@/components/HeroSection";
 import PortfolioAnalyzer from "@/components/PortfolioAnalyzer";
 import AnalysisResults from "@/components/AnalysisResults";
 import LoadingScreen from "@/components/LoadingScreen";
-import { PortfolioData, AnalysisResult } from "@/types/portfolio";
+import ParticleBackground from "@/components/ParticleBackground";
+import StatsSection from "@/components/StatsSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import FAQSection from "@/components/FAQSection";
+import CTASection from "@/components/CTASection";
 import { useAuth } from "@/hooks/useAuth";
-import { Button } from "@/components/ui/button";
+import { PortfolioData, AnalysisResult } from "@/types/portfolio";
 
 const Index = () => {
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
@@ -244,41 +249,33 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      <ParticleBackground />
       <LoadingScreen isVisible={isAnalyzing} />
       
-      <div className="absolute top-4 right-4 z-50">
-        <div className="flex items-center gap-4 bg-white/10 backdrop-blur-lg rounded-lg px-4 py-2 border border-white/20 animate-fade-in">
-          <span className="text-white text-sm">
-            Olá, {user?.email}
-          </span>
+      {user && (
+        <div className="fixed top-4 right-4 z-50">
           <Button
-            onClick={signOut}
             variant="outline"
-            size="sm"
-            className="bg-white/10 border-white/20 text-white hover:bg-white/20 hover-scale transition-all duration-200"
+            onClick={signOut}
+            className="border-yellow-500/30 text-yellow-400 hover:bg-yellow-500/10 backdrop-blur-sm"
           >
             Sair
           </Button>
         </div>
-      </div>
+      )}
 
-      <div className="animate-fade-in">
+      <main className="relative z-10">
         <HeroSection />
-      </div>
-      
-      <div className="container mx-auto px-4 py-16 animate-fade-in">
-        <PortfolioAnalyzer 
-          onAnalyze={handleAnalysis} 
-          isAnalyzing={isAnalyzing}
-        />
-        
-        {analysisResult && (
-          <div className="animate-scale-in">
-            <AnalysisResults result={analysisResult} />
-          </div>
-        )}
-      </div>
+        <StatsSection />
+        <div className="container mx-auto px-4 py-20">
+          <PortfolioAnalyzer onAnalyze={handleAnalysis} isAnalyzing={isAnalyzing} />
+        </div>
+        {analysisResult && <AnalysisResults result={analysisResult} />}
+        <TestimonialsSection />
+        <FAQSection />
+        <CTASection />
+      </main>
     </div>
   );
 };

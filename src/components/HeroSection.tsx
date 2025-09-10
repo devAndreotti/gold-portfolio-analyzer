@@ -13,31 +13,36 @@ const HeroSection = () => {
       {/* Enhanced background effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-yellow-900/20 via-transparent to-orange-900/20" />
       
-      {/* Animated floating orbs */}
+      {/* Animated floating orbs with improved positioning */}
       <div className="absolute top-1/4 left-1/4 w-80 h-80 rounded-full golden-gradient opacity-15 blur-3xl float animate-pulse" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-gradient-to-r from-amber-500/20 to-yellow-500/20 opacity-20 blur-3xl float" style={{ animationDelay: '2s' }} />
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-gradient-to-r from-orange-500/10 to-yellow-500/10 opacity-30 blur-2xl float" style={{ animationDelay: '4s' }} />
+      <div className="absolute top-10 right-10 w-32 h-32 rounded-full bg-gradient-to-r from-yellow-400/15 to-amber-400/15 opacity-25 blur-2xl float" style={{ animationDelay: '1s' }} />
+      <div className="absolute bottom-10 left-10 w-48 h-48 rounded-full bg-gradient-to-r from-orange-400/10 to-yellow-400/10 opacity-20 blur-2xl float" style={{ animationDelay: '3s' }} />
       
       <div className="container mx-auto px-4 text-center relative z-10">
         {/* Main content */}
         <div className="max-w-5xl mx-auto">
           <div className="mb-8">
-            <div className="inline-flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/20 rounded-full px-4 py-2 mb-6">
+            <div className="inline-flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/20 rounded-full px-4 py-2 mb-6 hover:bg-yellow-500/15 transition-all duration-300 hover-glow">
               <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
               <span className="text-yellow-400 text-sm font-medium">Powered by AI</span>
+              <div className="w-1 h-1 bg-yellow-400/50 rounded-full"></div>
             </div>
             
-            <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-yellow-400 via-amber-500 to-orange-500 bg-clip-text text-transparent leading-tight">
+            <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-yellow-400 via-amber-500 to-orange-500 bg-clip-text text-transparent leading-tight animate-fade-in">
               Análise Inteligente
               <br />
-              <span className="text-4xl md:text-6xl">de Portfólio</span>
+              <span className="text-4xl md:text-6xl bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-400 bg-clip-text text-transparent">de Portfólio</span>
             </h1>
           </div>
           
-          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed slide-in-bottom">
             Descubra o potencial da sua carteira de investimentos com análise estratégica baseada em IA. 
             <br className="hidden md:block" />
             Identifique oportunidades, gerencie riscos e otimize seus retornos.
+            <br className="hidden md:block" />
+            <span className="text-yellow-400 font-semibold">Análise completa em segundos, insights que transformam resultados.</span>
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-20">
