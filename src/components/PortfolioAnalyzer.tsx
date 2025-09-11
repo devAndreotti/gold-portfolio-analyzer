@@ -166,12 +166,37 @@ const PortfolioAnalyzer = ({ onAnalyze, isAnalyzing }: PortfolioAnalyzerProps) =
                       <SelectTrigger className="bg-black/30 border-yellow-500/20 text-white h-11 rounded-xl focus:border-yellow-400">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-yellow-500/30">
-                        <SelectItem value="stock">📈 Ação</SelectItem>
-                        <SelectItem value="fii">🏢 FII</SelectItem>
-                        <SelectItem value="bond">💰 Renda Fixa</SelectItem>
-                        <SelectItem value="etf">📊 ETF</SelectItem>
-                        <SelectItem value="crypto">₿ Cripto</SelectItem>
+                      <SelectContent className="bg-slate-900/98 border-yellow-500/40 backdrop-blur-xl">
+                        <SelectItem value="stock" className="hover:bg-yellow-500/20 focus:bg-yellow-500/20 cursor-pointer transition-colors">
+                          <div className="flex items-center gap-3">
+                            <span className="text-lg">📈</span>
+                            <span className="font-medium">Ação</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="fii" className="hover:bg-yellow-500/20 focus:bg-yellow-500/20 cursor-pointer transition-colors">
+                          <div className="flex items-center gap-3">
+                            <span className="text-lg">🏢</span>
+                            <span className="font-medium">FII</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="bond" className="hover:bg-yellow-500/20 focus:bg-yellow-500/20 cursor-pointer transition-colors">
+                          <div className="flex items-center gap-3">
+                            <span className="text-lg">💰</span>
+                            <span className="font-medium">Renda Fixa</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="etf" className="hover:bg-yellow-500/20 focus:bg-yellow-500/20 cursor-pointer transition-colors">
+                          <div className="flex items-center gap-3">
+                            <span className="text-lg">📊</span>
+                            <span className="font-medium">ETF</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="crypto" className="hover:bg-yellow-500/20 focus:bg-yellow-500/20 cursor-pointer transition-colors">
+                          <div className="flex items-center gap-3">
+                            <span className="text-lg">₿</span>
+                            <span className="font-medium">Cripto</span>
+                          </div>
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
