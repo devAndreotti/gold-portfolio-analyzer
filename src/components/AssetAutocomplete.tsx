@@ -68,7 +68,7 @@ const AssetAutocomplete = ({
   };
 
   return (
-    <div ref={containerRef} className="relative">
+    <div ref={containerRef} className="relative z-50">
       <Label htmlFor={id} className="text-sm font-medium text-gray-300 mb-2 block">
         {label}
       </Label>
@@ -92,7 +92,10 @@ const AssetAutocomplete = ({
       </div>
       
       {isOpen && suggestions.length > 0 && (
-        <div className="absolute z-[99999] w-full mt-1 bg-slate-900/98 border border-yellow-500/40 rounded-xl shadow-2xl backdrop-blur-xl max-h-60 overflow-y-auto">
+        <div className="fixed inset-0 z-[9998]" onClick={() => setIsOpen(false)} />
+      )}
+      {isOpen && suggestions.length > 0 && (
+        <div className="absolute z-[9999] w-full mt-1 bg-slate-900/98 border border-yellow-500/40 rounded-xl shadow-2xl backdrop-blur-xl max-h-60 overflow-y-auto">
           {suggestions.map((asset, index) => (
             <div
               key={`${asset.ticker}-${index}`}
