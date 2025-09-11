@@ -57,7 +57,7 @@ const AnalysisResults = ({ result }: AnalysisResultsProps) => {
   };
 
   return (
-    <div className="mt-16 space-y-8">
+    <div className="mt-16 space-y-8 max-w-7xl mx-auto px-4">
       {/* Header */}
       <div className="text-center">
         <h2 className="text-4xl font-bold bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent mb-4">
