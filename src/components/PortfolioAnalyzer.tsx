@@ -135,7 +135,7 @@ const PortfolioAnalyzer = ({ onAnalyze, isAnalyzing }: PortfolioAnalyzerProps) =
             </div>
             
             {assets.map((asset, index) => (
-              <div key={index} className="glass rounded-2xl p-6 space-y-4 border border-yellow-500/10 hover:border-yellow-500/20 transition-all duration-300 hover-lift stagger-animation">
+              <div key={index} className="glass rounded-2xl p-6 space-y-4 border border-yellow-500/10 hover:border-yellow-500/20 transition-all duration-300 hover-lift stagger-animation relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div>
                     <AssetAutocomplete
