@@ -47,7 +47,7 @@ Este projeto une análise quantitativa avançada com **interface intuitiva** par
 
 ## 🧭 Guia de Implementação
 ### 🔹 Usando o Lovable (recomendado)
-1. Acesse o projeto em [Lovable](https://portfolio-analyzer.lovable.app)
+1. Acesse o projeto em [Lovable](https://preview--gold-portfolio-analyzer.lovable.app/)
 2. Adicione seus ativos diretamente na interface
 3. Visualize análises em tempo real
 4. Publique via **Share > Publish**
