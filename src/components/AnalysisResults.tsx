@@ -240,7 +240,7 @@ const AnalysisResults = ({ result }: AnalysisResultsProps) => {
           <CardContent>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
-                <RadarChart data={riskAnalysisData}>
+                <RadarChart data={riskAnalysisData} margin={{ top: 10, right: 80, bottom: 10, left: 80 }}>
                   <PolarGrid stroke="#374151" />
                   <PolarAngleAxis dataKey="subject" tick={{ fontSize: 11, fill: '#9CA3AF' }} />
                   <PolarRadiusAxis angle={90} domain={[0, 100]} tick={false} />
