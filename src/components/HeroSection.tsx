@@ -9,7 +9,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-16">
       {/* Enhanced layered background effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-yellow-900/30 via-transparent to-orange-900/20" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-yellow-600/20 via-transparent to-transparent" />
