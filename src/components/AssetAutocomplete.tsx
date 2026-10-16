@@ -31,12 +31,9 @@ const AssetAutocomplete = ({
 
   useEffect(() => {
     if (value && value.length >= 2) {
-      const results = searchAssets(value);
-      setSuggestions(results);
-      setIsOpen(results.length > 0);
+      setSuggestions(searchAssets(value));
     } else {
       setSuggestions([]);
-      setIsOpen(false);
     }
   }, [value]);
 
@@ -59,6 +56,7 @@ const AssetAutocomplete = ({
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
+    setIsOpen(e.target.value.length >= 2);
   };
 
   const handleInputFocus = () => {
